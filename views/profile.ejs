@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+</head>
+<body>
+  <h1>Profile</h1>
+  <% if (user) { %>
+    <p>Nama: <%= user.name %></p>
+    <p>Email: <%= user.email %></p>
+  <% } else { %>
+    <p>No user found.</p>
+  <% } %>
+</body>
+</html>
+
