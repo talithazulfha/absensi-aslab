@@ -21,9 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('', aslabRouter); 
 app.use('/admin', adminRouter); 
 app.use('', authRouter); 
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/preline', express.static(path.join(__dirname, 'node_modules/preline/dist')));
+app.use(express.static(path.join(__dirname, "./node_modules/preline/dist")));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.use(function(req, res, next) {
