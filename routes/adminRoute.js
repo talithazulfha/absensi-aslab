@@ -23,6 +23,15 @@ router.get('/akun', verifyToken, function(req, res, next) {
   res.render('admin/akun', { userId,userEmail,userName,userRole });
 });
 
+router.get('/anggota', verifyToken, function(req, res, next) {
+  const userId = req.userId;
+  const userEmail = req.userEmail;
+  const userName = req.userName;
+  const userRole = req.userRole;
+
+  res.render('admin/anggota', { userId,userEmail,userName,userRole });
+});
+
 router.get('/daftarAkun', verifyToken, function(req, res, next) {
   const userId = req.userId;
   const userEmail = req.userEmail;
