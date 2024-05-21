@@ -83,7 +83,7 @@ const changePassword = async (req, res) => {
     
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Terjadi kesalahan server" });
+    return res.status(500).json({ message: "Terjadi kesalahan server pada database" });
   }
 };
 
