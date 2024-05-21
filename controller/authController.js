@@ -5,7 +5,7 @@ const { User } = require("../models");
 const form = (req, res) => {
   const token = req.cookies.token;
 
-  res.render("login", { title: "Express" });
+  res.render("login", { title: "Login" });
 };
 
 const checklogin = async (req, res) => {
