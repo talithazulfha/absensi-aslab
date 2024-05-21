@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
-<body>
-    <h1>Ini Aslab</h1>
-    <h1>Welcome, <%= userName %></h1>
-    <p>User ID: <%= userId %></p>
-    <p>User Name: <%= userName %></p>
-    <p>User Email: <%= userEmail %></p>
-    <p>User Role: <%= userRole %></p>
 
-    <a href="/aslab/home" class="btn btn-primary">Kembali</a>
-    <a href="/aslab/ubahPassword">
-        Change password
-      </a>
-  
+<body>
+    <div class="container">
+        <%- include('sidebar') %>
+            <div class="flex px-60 m-12 mr-9 mx-auto h-128 bg-gray-100 rounded-xl drop-shadow-xl">
+                <div class="data">
+                    <h1>Ini Aslab</h1>
+                    <h1>Welcome, <%= userName %>
+                    </h1>
+                    <p>User ID: <%= userId %>
+                    </p>
+                    <p>User Name: <%= userName %>
+                    </p>
+                    <p>User Email: <%= userEmail %>
+                    </p>
+                    <p>User Role: <%= userRole %>
+                    </p>
+
+                    <button type="button"
+                        class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-blue-600 text-blue-600 hover:border-blue-500 hover:text-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:border-blue-500 dark:text-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400">
+                        <a href="/aslab/home">Kembali</a>
+                    </button>
+                    <button type="button"
+                        class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none m-4">
+                        <a href="/aslab/ubahPassword">Ubah Password</a>
+                    </button>
+                </div>
+            </div>
+    </div>
+
 </body>
+
 </html>
