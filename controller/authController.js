@@ -5,7 +5,7 @@ const { User } = require("../models");
 const form = (req, res) => {
   const token = req.cookies.token;
 
-  res.render("login", { title: "Express" });
+  res.render("login", { title: "Login" });
 };
 
 const checklogin = async (req, res) => {
@@ -83,7 +83,7 @@ const changePassword = async (req, res) => {
     
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Terjadi kesalahan server" });
+    return res.status(500).json({ message: "Terjadi kesalahan server pada database" });
   }
 };
 

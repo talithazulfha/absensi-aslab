@@ -15,7 +15,6 @@ router.get('/dashboard', verifyToken, checkRole("admin"), function(req, res, nex
 });
 
 router.get('/akun', verifyToken, function(req, res, next) {
-  // menampilkan data aslab
   const userId = req.userId;
   const userEmail = req.userEmail;
   const userName = req.userName;
@@ -24,5 +23,23 @@ router.get('/akun', verifyToken, function(req, res, next) {
   res.render('admin/akun', { userId,userEmail,userName,userRole });
 });
 
-//
+router.get('/anggota', verifyToken, function(req, res, next) {
+  const userId = req.userId;
+  const userEmail = req.userEmail;
+  const userName = req.userName;
+  const userRole = req.userRole;
+
+  res.render('admin/anggota', { userId,userEmail,userName,userRole });
+});
+
+router.get('/daftarAkun', verifyToken, function(req, res, next) {
+  const userId = req.userId;
+  const userEmail = req.userEmail;
+  const userName = req.userName;
+  const userRole = req.userRole;
+
+  res.render('admin/daftarAkun', { userId,userEmail,userName,userRole });
+});
+
+
 module.exports = router;
