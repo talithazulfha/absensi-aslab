@@ -12,6 +12,7 @@ var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,8 +23,8 @@ app.use('', aslabRouter);
 app.use('/admin', adminRouter); 
 app.use('', authRouter); 
 
-app.use(express.static(path.join(__dirname, "./node_modules/preline/dist")));
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/preline', express.static(path.join(__dirname, 'node_modules/preline/dist')));
+app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')));
 
 app.use(function(req, res, next) {
   next(createError(404));

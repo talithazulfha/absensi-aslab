@@ -1,8 +1,26 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/* Ensure the body takes full height */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
-a {
-  color: #00B7FF;
+/* Flex container to manage the layout */
+.container {
+  display: flex;
+  height: 100%;
 }
+
+/* Sidebar styles (adjust width as needed) */
+.sidebar {
+  width: 250px; /* Adjust the width according to your design */
+  background-color: #f4f4f4; /* Example background color */
+  flex-shrink: 0;
+}
+
+/* Profile section to take remaining space */
+.data {
+  flex-grow: 1;
+  padding: 20px; /* Optional padding */
+}
+
