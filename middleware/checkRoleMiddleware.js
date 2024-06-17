@@ -4,7 +4,7 @@ function checkRole(role) {
       if (req.userRole === role) {
         next(); 
       } else {
-        res.status(403).send('Akses ditolak!');
+        res.status(403).send('Access denied!');
       }
     };
   }
