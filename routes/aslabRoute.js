@@ -35,6 +35,15 @@ router.get('/aslab/ubahPassword',verifyToken, function(req, res, next) {
   res.render('aslab/ubahPassword', { userId,userEmail,userName,userRole  });
 });
 
+router.get('/aslab/jadwalPiket', verifyToken, checkRole("aslab"), function(req, res) {
+  const userId = req.userId;
+  const userEmail = req.userEmail;
+  const userName = req.userName;
+  const userRole = req.userRole;
+
+  res.render('aslab/jadwalPiket', { userId, userEmail, userName, userRole });
+});
+
 router.post('/change-password', verifyToken, async (req, res) => {
   try {
     await changePassword(req, res);
@@ -52,6 +61,7 @@ router.get('/profile', async function(req, res, next) {
     next(error);
   }
 });
+
 
 
 

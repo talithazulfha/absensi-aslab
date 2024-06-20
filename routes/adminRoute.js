@@ -41,5 +41,14 @@ router.get('/daftarAkun', verifyToken, function(req, res, next) {
   res.render('admin/daftarAkun', { userId,userEmail,userName,userRole });
 });
 
+router.get('/jadwalPiket', verifyToken, function(req, res, next) {
+  const userId = req.userId;
+  const userEmail = req.userEmail;
+  const userName = req.userName;
+  const userRole = req.userRole;
+
+  res.render('admin/jadwalPiket', { userId, userEmail, userName, userRole });
+});
+
 
 module.exports = router;
