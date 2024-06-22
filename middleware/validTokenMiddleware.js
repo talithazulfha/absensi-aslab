@@ -13,8 +13,11 @@ function verifyToken(req, res, next) {
       if (err) {
         return res.status(500).send({ auth: false, message: 'Failed to verify token.' });
       }
+      console.log('Decoded JWT:', decoded); // Debugging line
       req.userId = decoded.id;
       req.userRole = decoded.role;
+      req.userEmail = decoded.email;
+      req.userNama = decoded.namaAnggota;
       next();
     });
 
