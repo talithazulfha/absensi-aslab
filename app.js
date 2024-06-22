@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 require('dotenv').config();
+const { sequelize } = require('./models');
 
 var aslabRouter = require('./routes/aslabRoute');
 var adminRouter = require('./routes/adminRoute');
@@ -13,6 +14,12 @@ var tamuRouter = require('./routes/tamuRoute');
 var feedbackRouter = require('./routes/feedbackRoute');
 
 var app = express();
+
+sequelize.sync().then(() => {
+  console.log('Database synced');
+}).catch(err => {
+  console.error('Unable to sync database:', err);
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

@@ -29,9 +29,9 @@ const checklogin = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: foundUser.id, role: foundUser.role},
+      { id: foundUser.id, role: foundUser.role, email: foundUser.email, namaAnggota: foundUser.namaAnggota },
       process.env.JWT_SECRET_TOKEN,
-      { expiresIn: 86400 }
+      { expiresIn: '1d' }
     );
 
     res.cookie("token", token, { httpOnly: true });
