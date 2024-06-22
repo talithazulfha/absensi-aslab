@@ -24,3 +24,47 @@ body, html {
   padding: 20px; /* Optional padding */
 }
 
+.container {
+  display: flex;
+  height: 100vh;
+}
+.form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.form-box {
+  background-color: white;
+  padding: 60px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.feedback-box {
+  background-color: white;
+  padding: 60px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure full width */
+  max-width: 600px; /* Optional: Limit the max width */
+}
+.navy-box {
+  flex: 0.5;
+  background-color: rgb(18, 24, 38);
+}
+.navy-box {
+  flex: 0.5;
+  background-color: rgb(18, 24, 38);
+}
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+

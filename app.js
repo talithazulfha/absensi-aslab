@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 require('dotenv').config();
 const { sequelize } = require('./models');
@@ -9,6 +10,8 @@ const { sequelize } = require('./models');
 var aslabRouter = require('./routes/aslabRoute');
 var adminRouter = require('./routes/adminRoute');
 var authRouter = require('./routes/authRoute');
+var tamuRouter = require('./routes/tamuRoute');
+var feedbackRouter = require('./routes/feedbackRoute');
 
 var app = express();
 
@@ -25,11 +28,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/aslab', aslabRouter); 
 app.use('/admin', adminRouter); 
-app.use('/', authRouter); 
+app.use('/', authRouter);
+app.use('/tamu', tamuRouter);
+app.use('/feedback', feedbackRouter); 
 
 app.use(express.static(path.join(__dirname, "./node_modules/preline/dist")));app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')));
 app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')));
@@ -50,5 +57,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const { sequelize } = require('./models');
+
+// Sync database
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('Database & tables created!');
+  });
 
 module.exports = app;

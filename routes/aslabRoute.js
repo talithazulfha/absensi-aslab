@@ -17,6 +17,5 @@ router.get("/ubahPassword", verifyToken, checkRole("aslab"), function (req, res)
   res.render("aslab/ubahPassword", { title: "Ubah Password" });
 });
 
-
-
 module.exports = router;
+
