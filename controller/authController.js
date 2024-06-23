@@ -50,6 +50,31 @@ const checklogin = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  try {
+      const { currentPassword, newPassword } = req.body;
+
+      const user = await User.findByPk(req.userId);
+      if (!user) {
+          return res.status(404).json({ message: "Pengguna tidak ditemukan" });
+      }
+
+      const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+      if (!isPasswordValid) {
+          return res.status(401).json({ message: "Password saat ini salah" });
+      }
+
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+      await user.update({ password: hashedNewPassword });
+
+      return res.redirect('/login'); 
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Terjadi kesalahan server" });
+  }
+};
+
 function logout  (req, res) {
   res.clearCookie("token");
   res.redirect("/login");
@@ -58,5 +83,6 @@ function logout  (req, res) {
 module.exports = {
   form,
   checklogin,
-  logout
+  logout,
+  changePassword
 };
