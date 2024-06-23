@@ -19,6 +19,11 @@ router.get('/pertemuan', verifyToken, checkRole("admin"), (req, res) => {
   res.render("admin/pertemuan", { title: "Admin Pertemuan Baru", userNama});
 });
 
+router.get('/laporanPertemuan', verifyToken, checkRole("admin"), (req, res) => {
+  const {userNama} = req;
+  res.render("admin/laporanPertemuan", { title: "Admin Pertemuan Baru", userNama});
+});
+
 router.get('/dashboard', verifyToken, checkRole("admin"), (req, res) => {
   const {userNama} = req;
   res.render("admin/dashboard", { title: "Admin Dashboard", userNama});
