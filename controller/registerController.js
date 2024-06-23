@@ -23,15 +23,6 @@ const register = async (req,res) => {
         });
         console.log('New User Created:', newUser);
 
-        // const token = jwt.sign(
-        //     { id: newUser.id, role: newUser.role },
-        //     process.env.JWT_SECRET_TOKEN,
-        //     { expiresIn: '1d' }
-        //   );
-        //   console.log('JWT Token:', token);
-
-        //   res.cookie('token', token, { httpOnly: true });
-
           res.redirect('/admin/dashboard');
     } catch (error) {
         console.error('Error registering new user:', error);
