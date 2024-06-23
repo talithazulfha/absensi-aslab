@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 require('dotenv').config();
 const { sequelize } = require('./models');
+const pertemuanRoutes = require('./routes/pertemuan');
 
 var aslabRouter = require('./routes/aslabRoute');
 var adminRouter = require('./routes/adminRoute');
@@ -23,6 +24,8 @@ sequelize.sync().then(() => {
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use('/api/pertemuan', pertemuanRoutes);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -50,6 +53,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -57,8 +61,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-const { sequelize } = require('./models');
 
 // Sync database
 sequelize.sync({ alter: true })

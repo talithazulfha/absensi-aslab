@@ -4,7 +4,7 @@ const sequelize = require('../config/database');
 const {
   Model
 } = require('sequelize');
-module.exports = function(sequelize, DataTypes){
+module.exports = function (sequelize, DataTypes) {
   class User extends Model {
     /**
      * Helper method for defining associations.
@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes){
      */
     static associate(models) {
       // define association here
+      User.belongsToMany(models.Pertemuan, { through: models.BuatPertemuan, foreignKey: 'userId' });
     }
   }
   User.init({
@@ -21,12 +22,30 @@ module.exports = function(sequelize, DataTypes){
       primaryKey: true,
       allowNull: false
     },
-    namaAnggota: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING,
-    jabatan: DataTypes.STRING,
-    noHp: DataTypes.STRING
+    namaAnggota: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    jabatan: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    noHp: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'User',

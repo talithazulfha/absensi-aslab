@@ -1,11 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="/stylesheets/output.css" rel="stylesheet" />
+    <title>Create Pertemuan</title>
 </head>
-<body>
-    <h1>ini halaman buat pertemuan</h1>
+
+<body class="bg-gray-100">
+
+    <!-- Hero -->
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+
+        <!-- Form container -->
+        <div class="bg-white p-6 rounded-lg shadow-lg" style="width: 70%; position: absolute; left: 20%; top: 15%;">
+
+            <!-- Include Sidebar -->
+            <%- include('sidebar') %>
+
+            <!-- Form -->
+            <form id="createPertemuanForm" class="mt-6 space-y-4">
+
+                <!-- Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                    <!-- Nama Pertemuan -->
+                    <div>
+                        <label for="namaPertemuan"
+                            class="block mb-2 text-sm text-gray-700 font-medium">Nama Pertemuan</label>
+                        <input type="text" name="namaPertemuan" id="namaPertemuan"
+                            class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
+                    </div>
+
+                    <!-- Jenis Pertemuan -->
+                    <div>
+                        <label for="jenisPertemuan"
+                            class="block mb-2 text-sm text-gray-700 font-medium">Jenis Pertemuan</label>
+                        <select name="jenisPertemuan" id="jenisPertemuan"
+                            class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                            required>
+                            <option value="" disabled selected hidden>Pilih Jenis Pertemuan</option>
+                            <option value="rapat">Rapat</option>
+                            <option value="upgrading">Upgrading</option>
+                            <option value="goro">Goro</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- End Grid -->
+
+                <!-- Tanggal -->
+                <div>
+                    <label for="tanggal" class="block mb-2 text-sm text-gray-700 font-medium">Tanggal</label>
+                    <input type="date" name="tanggal" id="tanggal"
+                        class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                        required>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-6">
+                    <button type="submit"
+                        class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">Submit</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="/preline.js"></script>
+    <script>
+        document.getElementById('createPertemuanForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const namaPertemuan = document.getElementById('namaPertemuan').value;
+            const jenisPertemuan = document.getElementById('jenisPertemuan').value;
+            const tanggal = document.getElementById('tanggal').value;
+
+            try {
+                const response = await fetch('/api/pertemuan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        namaPertemuan,
+                        jenisPertemuan,
+                        tanggal
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Pertemuan created successfully!');
+                    // Optionally, redirect to another page or reset the form
+                    document.getElementById('createPertemuanForm').reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error: ${errorData.message}`);
+                }
+            } catch (error) {
+                console.error('Error creating pertemuan:', error);
+                alert('An unexpected error occurred. Please try again later.');
+            }
+        });
+    </script>
+
 </body>
+
 </html>

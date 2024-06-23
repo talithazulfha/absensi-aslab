@@ -4,11 +4,24 @@ const verifyToken = require('../middleware/validTokenMiddleware');
 const checkRole = require('../middleware/checkRoleMiddleware');
 const admin = require('../controller/admin');
 const registerController = require('../controller/registerController');
+const pertemuan = require('../controller/pertemuanController');
 
 router.post('/daftarAkun', registerController.register);
+// router.post('/pertemuan', pertemuan.createPertemuan);
+
+router.get('/daftarAkun', verifyToken, checkRole("admin"), (req, res) => {
+  const {userNama} = req;
+  res.render("admin/daftarAkun", { title: "Admin Daftar Akun", userNama});
+});
+
+router.get('/pertemuan', verifyToken, checkRole("admin"), (req, res) => {
+  const {userNama} = req;
+  res.render("admin/pertemuan", { title: "Admin Pertemuan Baru", userNama});
+});
 
 router.get('/dashboard', verifyToken, checkRole("admin"), (req, res) => {
-  res.render("admin/dashboard", { title: "Admin Dashboard" });
+  const {userNama} = req;
+  res.render("admin/dashboard", { title: "Admin Dashboard", userNama});
 });
 
 router.get('/akun', verifyToken, (req, res) => {
