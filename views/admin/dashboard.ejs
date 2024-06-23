@@ -1,26 +1,40 @@
+<!-- admin/dashboard.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/stylesheets/output.css" rel="stylesheet" />
     <title><%= title %></title>
 </head>
-<body>
 
-  <div class="content-center ml-96 mt-56">
-    <h1>Ini Admin</h1>
+<body class="bg-gray-100">
 
-    <h1>Welcome, Admin!</h1>
-    
+    <%- include('sidebar') %>
 
-    
-    
-</div>
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+        <div class="bg-white p-6 rounded-lg shadow-lg" style="width: 70%; position: absolute; left: 20%; top: 15%;">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6"><%= title %></h1>
 
-<%- include('sidebar') %>
+            <section class="mb-8">
+                <div class="flex justify-between items-center bg-gray-200 rounded-lg p-4 mb-4">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">Banyak Anggota</h2>
+                        <p class="text-3xl font-bold text-gray-900"><%= aslabCount %></p>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">Banyak Pertemuan</h2>
+                        <p class="text-3xl font-bold text-gray-900"><%= pertemuanCount %></p>
+                    </div>
+                </div>
+            </section>
 
-      <script src="/preline.js"></script>
-  
+
+        </div>
+    </div>
+    <script src="/preline.js"></script>
 </body>
+
 </html>

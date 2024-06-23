@@ -9,42 +9,33 @@
 </head>
 
 <body class="bg-gray-100">
+    <%- include('sidebar') %>
 
-    <!-- Container for centering -->
+
     <div class="min-h-screen flex items-center justify-center">
-      
-        <!-- Form container -->
+
+
         <div class="bg-white p-6 rounded-lg shadow-lg" style="width: 70%; position: absolute; left: 20%; top: 15%;">
 
-            <!-- Include Sidebar -->
-            <%- include('sidebar') %>
-            
-            <!-- Form -->
-            <form method="POST" action="/admin/daftarAkun" class="mt-6 space-y-4">
-              <h1 class="text-3xl font-bold text-gray-900 mb-6">Tambah Anggota</h1>
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Tambah Anggota</h1>
 
-                <!-- Grid -->
+            <form id="registrationForm" method="POST" action="/admin/daftarAkun" class="mt-6 space-y-4">
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-                    <!-- No Anggota -->
                     <div>
-                        <label for="noAnggota"
-                            class="block mb-2 text-sm text-gray-700 font-medium">No Anggota</label>
+                        <label for="noAnggota" class="block mb-2 text-sm text-gray-700 font-medium">No Anggota</label>
                         <input type="text" name="noAnggota" id="noAnggota"
                             class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                     </div>
 
-                    <!-- Nama Anggota -->
                     <div>
-                        <label for="namaAnggota"
-                            class="block mb-2 text-sm text-gray-700 font-medium">Nama Anggota</label>
+                        <label for="namaAnggota" class="block mb-2 text-sm text-gray-700 font-medium">Nama Anggota</label>
                         <input type="text" name="namaAnggota" id="namaAnggota"
                             class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                     </div>
                 </div>
-                <!-- End Grid -->
 
-                <!-- Password -->
                 <div>
                     <label for="password" class="block mb-2 text-sm text-gray-700 font-medium">Password</label>
                     <input type="text" name="password" id="password"
@@ -52,7 +43,6 @@
                         placeholder="1234567 (default)" readonly>
                 </div>
 
-                <!-- Email -->
                 <div>
                     <label for="email" class="block mb-2 text-sm text-gray-700 font-medium">Email</label>
                     <input type="email" name="email" id="email" autocomplete="email"
@@ -60,21 +50,18 @@
                         placeholder="email@gmail.com (default)" readonly>
                 </div>
 
-                <!-- Jabatan -->
                 <div>
                     <label for="jabatan" class="block mb-2 text-sm text-gray-700 font-medium">Jabatan</label>
                     <input type="text" name="jabatan" id="jabatan"
                         class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                 </div>
 
-                <!-- No Hp -->
                 <div>
                     <label for="noHp" class="block mb-2 text-sm text-gray-700 font-medium">No Hp</label>
                     <input type="text" name="noHp" id="noHp"
                         class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
                 </div>
 
-                <!-- Submit Button -->
                 <div class="mt-6">
                     <button type="submit"
                         class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">Submit</button>
@@ -87,7 +74,7 @@
     </div>
 
     <script src="/preline.js"></script>
-
+    
 </body>
 
 </html>
