@@ -6,14 +6,15 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 require('dotenv').config();
 const { sequelize } = require('./models');
-const pertemuanRoutes = require('./routes/pertemuan');
-const presensiPiketRoutes = require('./routes/presensiRoute');
+
 
 var aslabRouter = require('./routes/aslabRoute');
 var adminRouter = require('./routes/adminRoute');
 var authRouter = require('./routes/authRoute');
 var tamuRouter = require('./routes/tamuRoute');
 var feedbackRouter = require('./routes/feedbackRoute');
+const presensiPiketRoutes = require('./routes/presensiRoute');
+
 
 var app = express();
 
@@ -26,7 +27,7 @@ sequelize.sync().then(() => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use('/api/pertemuan', pertemuanRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -59,12 +60,10 @@ app.use((req, res, next) => {
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   res.status(err.status || 500);
   res.render('error');
 });
 
-// Sync database
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('Database & tables created!');

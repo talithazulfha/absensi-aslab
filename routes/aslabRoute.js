@@ -13,8 +13,18 @@ router.get('/akun', verifyToken, (req, res) => {
   res.render('aslab/akun', { userId, userRole, userEmail, userNama });
 });
 
-router.get("/ubahPassword", verifyToken, checkRole("aslab"), function (req, res) {
-  res.render("aslab/ubahPassword", { title: "Ubah Password" });
+router.get('/ubahPassword', verifyToken, (req, res) => {
+  const { userId, userRole, userEmail, userNama } = req;
+  res.render('aslab/ubahPassword', { userId, userRole, userEmail, userNama });
+});
+
+router.post('/change-password', verifyToken, async (req, res) => {
+    try {
+        await changePassword(req, res);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Terjadi kesalahan server" });
+    }
 });
 
 router.get("/jadwalPiket", verifyToken, checkRole("aslab"), function (req, res) {

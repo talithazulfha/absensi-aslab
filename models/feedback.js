@@ -29,9 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
 });
 
- Feedback.associate = (models) => {
-  Feedback.belongsTo(models.Guest, { foreignKey: 'id' });
- };
 
   return Feedback;
 };
