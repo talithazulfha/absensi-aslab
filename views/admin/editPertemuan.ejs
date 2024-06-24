@@ -10,12 +10,16 @@
 
 <body class="bg-gray-100">
 
+    <%- include('sidebar') %>
 
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
 
         <div class="bg-white p-6 rounded-lg shadow-lg" style="width: 70%; position: absolute; left: 20%; top: 15%;">
 
             <form id="editPertemuanForm" class="mt-6 space-y-4" method="POST" action="/admin/editPertemuan/<%= pertemuan.id %>">
+                <div class="mt-6 flex justify-between">
+                    
+                </div>
                 <h1 class="text-3xl font-bold text-gray-900 mb-6">EDIT PERTEMUAN</h1>
 
 
