@@ -1,3 +1,7 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Feedback = sequelize.define('Feedback', {
     id_feedback: {
@@ -25,9 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
 });
 
-  // Feedback.associate = (models) => {
-  //   Feedback.belongsTo(models.Guest, { foreignKey: 'id' });
-  // };
+ Feedback.associate = (models) => {
+  Feedback.belongsTo(models.Guest, { foreignKey: 'id' });
+ };
 
   return Feedback;
 };

@@ -17,5 +17,9 @@ router.get("/ubahPassword", verifyToken, checkRole("aslab"), function (req, res)
   res.render("aslab/ubahPassword", { title: "Ubah Password" });
 });
 
+router.get("/jadwalPiket", verifyToken, checkRole("aslab"), function (req, res) {
+  res.render("aslab/jadwalPiket", { title: "Jadwal Piket" });
+});
+
 module.exports = router;
 

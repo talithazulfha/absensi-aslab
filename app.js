@@ -7,6 +7,7 @@ var logger = require('morgan');
 require('dotenv').config();
 const { sequelize } = require('./models');
 const pertemuanRoutes = require('./routes/pertemuan');
+const presensiPiketRoutes = require('./routes/presensiRoute');
 
 var aslabRouter = require('./routes/aslabRoute');
 var adminRouter = require('./routes/adminRoute');
@@ -39,7 +40,8 @@ app.use('/aslab', aslabRouter);
 app.use('/admin', adminRouter); 
 app.use('/', authRouter);
 app.use('/tamu', tamuRouter);
-app.use('/feedback', feedbackRouter); 
+app.use('/feedback', feedbackRouter);
+app.use('/presensiPiket', presensiPiketRoutes);
 
 app.use(express.static(path.join(__dirname, "./node_modules/preline/dist")));app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')));
 app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')));
