@@ -50,30 +50,33 @@ const checklogin = async (req, res) => {
   }
 };
 
+
 const changePassword = async (req, res) => {
   try {
-      const { currentPassword, newPassword } = req.body;
+    const { currentPassword, newPassword } = req.body;
 
-      const user = await User.findByPk(req.userId);
-      if (!user) {
-          return res.status(404).json({ message: "Pengguna tidak ditemukan" });
-      }
+    const user = await User.findByPk(req.userId);
+    console.log(user)
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
 
-      const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
-      if (!isPasswordValid) {
-          return res.status(401).json({ message: "Password saat ini salah" });
-      }
+    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Incorrect current password" });
+    }
 
-      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
-      await user.update({ password: hashedNewPassword });
+    await user.update({ password: hashedNewPassword });
 
-      return res.redirect('/login'); 
+    return res.redirect('/login');
   } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Terjadi kesalahan server" });
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 function logout  (req, res) {
   res.clearCookie("token");

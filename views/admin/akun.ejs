@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="/stylesheets/output.css" rel="stylesheet" />
-    <title></title>
 </head>
 <body>
 
@@ -28,11 +27,31 @@
 
                 <div class="text-sm text-gray-700">Nama:</div>
                 <div class="text-sm font-semibold"><%= userNama %></div>
+
+                <div class="text-sm text-gray-700">Jabatan:</div>
+                <div class="text-sm font-semibold"><%= userJabatan %></div>
+
+                <div class="text-sm text-gray-700">No HP:</div>
+                <div class="text-sm font-semibold"><%= userNoHp %></div>
+
+                <div class="text-sm text-gray-700">Profile Photo:</div>
+                <div class="text-sm font-semibold">
+                    <% if (userProfilePhoto) { %>
+                        <img class="inline-block size-[38px] rounded-full" src="/uploads/<%= userProfilePhoto %>" alt="Profile Photo">
+                    <% } else { %>
+                        <p>No photo available</p>
+                    <% } %>
+                </div>
             </div>
+            <button type="button"
+                        class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none m-4">
+                        <a href="/admin/ubahPassword">Ubah Password</a>
+                    </button>
 
         </div>
 
     </div>
+    
 
     <script src="/preline.js"></script>
 

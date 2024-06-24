@@ -19,12 +19,12 @@ router.get('/ubahPassword', verifyToken, (req, res) => {
 });
 
 router.post('/change-password', verifyToken, async (req, res) => {
-  try {
-      await changePassword(req, res);
-  } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Terjadi kesalahan server" });
-  }
+    try {
+        await changePassword(req, res);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Terjadi kesalahan server" });
+    }
 });
 
 module.exports = router;
