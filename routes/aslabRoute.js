@@ -27,9 +27,4 @@ router.post('/change-password', verifyToken, async (req, res) => {
     }
 });
 
-router.get("/jadwalPiket", verifyToken, checkRole("aslab"), function (req, res) {
-  res.render("aslab/jadwalPiket", { title: "Jadwal Piket" });
-});
-
 module.exports = router;
-
