@@ -41,7 +41,12 @@ module.exports = function (sequelize, DataTypes) {
     noHp: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+    profilePhoto: {
+      type: DataTypes.STRING,
+      allowNull: true
+  }
+    
   }, {
     sequelize,
     modelName: 'User',
