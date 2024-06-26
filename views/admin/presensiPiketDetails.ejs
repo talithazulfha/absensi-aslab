@@ -1,235 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Piket - Admin</title>
-    <link href="/css/tailwind.css" rel="stylesheet">
-    <link href="/stylesheets/output.css" rel="stylesheet">
+    <title><%= title %></title>
+    <link href="/stylesheets/output.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-    <div class="flex">
-        
-    </div>
-<!-- Main Content -->
-<div class="ml-64"> <!-- Adjust margin-left to match sidebar width -->
-    <div class="max-w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        <!-- Card -->
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:border-neutral-700">
-            <!-- Header -->
-            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-700">
-                <div>
-                    <h2 class="text-xl font-semibold text-black">
-                        Jadwal Piket
-                    </h2>
-                    <p class="text-sm text-black">
-                        Add users, edit and more.
-                    </p>
+<body>
+    <%- include('sidebar') %>
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg" style="width: 70%; position: absolute; left: 20%; top: 15%;">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Tambah Presensi Piket</h1>
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                        <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                            <h2 class="text-xl font-semibold text-gray-800">Jadwal Piket</h2>
+                            <a class="add-user-btn py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="/admin/daftarPiket">
+                                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                                Add User
+                            </a>
                 </div>
+            </div>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">No Anggota</span>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">Nama</span>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">Status</span>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">Hari Piket</span>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">Jam Masuk</span>
+                            <th scope="col" class="px-6 py-3 text-start">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">Jam Keluar</span>
+                            </th> 
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <% listpiket.forEach(presensipiket => { %>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-500"><%= presensipiket.no_anggota  %></span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="ml-4">
+                                            <span class="block text-sm font-semibold text-gray-800"><%= presensipiket.nama_anggota %></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium rounded-full"
+                                            :class="'bg-teal-100 text-teal-800': presensipiket.status === 'active', 'bg-gray-300 text-gray-500': presensipiket.status === 'inactive'}">
+                                            <%= presensipiket.status %>
+                                        </span>
+                                      </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-500"><%= presensipiket.tanggal %></span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-500"><%= presensipiket.jam_masuk %></span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="text-sm text-gray-500"><%= presensipiket.jam_keluar %></span>
+                                </td>
+                                <td class="py-2 px-4 border-b border-gray-200">
+                                    <a href="/admin/editPresensiPiket/<%= presensipiket.id %>"
+                                        class="text-blue-600 hover:underline">
+                                        Edit
+                                    </a>
+
+                                 <a href="/admin/delete/<%= presensipiket.id %>"
+                                    class="text-red-600 hover:underline"
+                                    onclick="return confirm('Are you sure you want to delete this pertemuan?');">
+                                    Delete
+                                 </a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+
+            <!-- Footer -->
+            <div class="px-6 py-4 flex justify-between items-center border-t border-gray-200">
+                <p class="text-sm text-gray-600">
+                    <span class="font-semibold text-gray-800"></span> results
+                </p>
                 <div class="inline-flex gap-x-2">
-                    <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800" href="#">
-                        View all
-                    </a>
-                    <button id="addUserButton" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" onclick="openPresensiModal()">
-                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                        Add user
+                    <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg>
+                        Prev
+                    </button>
+                    <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+                        Next
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
                     </button>
                 </div>
             </div>
-            <!-- End Header -->
-
-            <!-- Table -->
-            <div class="-m-1.5 overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-start">No Anggota</th>
-                            <th scope="col" class="px-6 py-3 text-start">Nama</th>
-                            <th scope="col" class="px-6 py-3 text-start">Status</th>
-                            <th scope="col" class="px-6 py-3 text-start">Hari Piket</th>
-                            <th scope="col" class="px-6 py-3 text-start">Jam Masuk</th>
-                            <th scope="col" class="px-6 py-3 text-start">Jam Keluar</th>
-                            <th scope="col" class="px-6 py-3 text-end"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="presensiPiketList">
-                        <!-- Data akan diisi oleh JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-            <!-- End Table -->
-
-            <!-- Footer -->
-            <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
-                <div>
-                    
-                </div>
-                <div>
-                    <div class="inline-flex gap-x-2">
-                        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                            Prev
-                        </button>
-                        <button type="button" class="py-1.5 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                            Next
-                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- End Footer -->
         </div>
-        <!-- End Card -->
     </div>
 </div>
-<!-- End Main Content -->
-
-<!-- Modal Presensi -->
-<div id="modalPresensi" class="modal-container">
-    <div class="modal-content">
-        <span id="closeModalPresensi" class="close">&times;</span>
-        <h3 class="text-lg font-semibold text-black">Tambah Presensi</h3>
-        <form id="addPresensiPiketForm" action="/presensiPiket" method="POST">
-            <input type="hidden" name="id_presensi" id="id_presensi">
-            <div class="mb-4">
-                <label for="no_anggota" class="block text-sm font-medium text-gray-700">No Anggota</label>
-                <input type="number" name="no_anggota" id="no_anggota" class="mt-1 block w-full" required>
-            </div>
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-                <input type="text" name="nama" id="nama" class="mt-1 block w-full" required>
-            </div>
-            <div class="mb-4">
-                <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                <input type="text" name="status" id="status" class="mt-1 block w-full" required>
-            </div>
-            <div class="mb-4">
-                <label for="hari_piket" class="block text-sm font-medium text-gray-700">Hari Piket</label>
-                <input type="date" name="hari_piket" id="hari_piket" class="mt-1 block w-full" required>
-            </div>
-            <div class="mb-4">
-                <label for="jam_masuk" class="block text-sm font-medium text-gray-700">Jam Masuk</label>
-                <input type="time" name="jam_masuk" id="jam_masuk" class="mt-1 block w-full" required>
-            </div>
-            <div class="mb-4">
-                <label for="jam_keluar" class="block text-sm font-medium text-gray-700">Jam Keluar</label>
-                <input type="time" name="jam_keluar" id="jam_keluar" class="mt-1 block w-full" required>
-            </div>
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white">Simpan</button>
-        </form>
-    </div>
 </div>
-<!-- End Modal Presensi -->
+</div>
+</div>
 
-<script>
-    async function fetchPresensiPiket() {
-        try {
-            const response = await fetch('/presensiPiket');
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            const data = await response.json();
-            const presensiPiketList = document.getElementById('presensiPiketList');
-            presensiPiketList.innerHTML = '';
-
-            data.forEach(presensiPiket => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                                        <td class="px-6 py-3">${presensiPiket.nama}</td>
-                    <td class="px-6 py-3">
-                        <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
-                            <svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
-                            ${presensiPiket.status}
-                        </span>
-                    </td>
-                    <td class="px-6 py-3">${new Date(presensiPiket.hari).toLocaleDateString()}</td>
-                    <td class="px-6 py-3">${presensiPiket.jam_masuk}</td>
-                    <td class="px-6 py-3">${presensiPiket.jam_keluar}</td>
-                    <td class="px-6 py-3 text-end">
-                        <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500" href="#" onclick="editPresensiPiket('${presensiPiket.id_presensi}')">Edit</a>
-                        <button class="inline-flex items-center gap-x-1 text-sm text-red-600 decoration-2 hover:underline font-medium dark:text-red-500" onclick="deletePresensiPiket('${presensiPiket.id_presensi}')">Delete</button>
-                    </td>
-                `;
-                presensiPiketList.appendChild(row);
-            });
-        } catch (error) {
-            console.error('Error fetching presensi piket:', error);
-        }
-    }
-
-    async function editPresensiPiket(id) {
-        // Implementasi fungsi edit di sini, misalnya dengan menampilkan data di modal
-        const presensiPiket = await fetchSinglePresensiPiket(id); // Fungsi untuk mengambil data presensi piket berdasarkan id
-        // Isi modal edit dengan data presensiPiket
-    }
-
-    async function fetchSinglePresensiPiket(id) {
-        try {
-            const response = await fetch(`/presensiPiket/${id}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch presensi piket');
-            }
-            const presensiPiket = await response.json();
-            return presensiPiket;
-        } catch (error) {
-            console.error('Error fetching single presensi piket:', error);
-        }
-    }
-
-    async function deletePresensiPiket(id) {
-        try {
-            const response = await fetch(`/presensiPiket/${id}`, { method: 'DELETE' });
-            if (!response.ok) {
-                throw new Error('Failed to delete presensi piket');
-            }
-            fetchPresensiPiket(); // Muat ulang data setelah penghapusan berhasil
-        } catch (error) {
-            console.error('Error deleting presensi piket:', error);
-        }
-    }
-
-    async function openPresensiModal() {
-        // Isi modal untuk menambah presensi piket
-        document.getElementById('addPresensiPiketForm').reset(); // Reset form sebelum ditampilkan
-        document.getElementById('id_presensi').value = ''; // Kosongkan id_presensi untuk menandai penambahan data baru
-        // Tampilkan modal
-        document.getElementById('modalPresensi').classList.add('open');
-    }
-
-    document.getElementById('addPresensiPiketForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-
-        const url = data.id_presensi ? `/presensiPiket/${data.id_presensi}` : '/presensiPiket'; // Tentukan URL berdasarkan apakah id_presensi sudah ada
-        const method = data.id_presensi ? 'PUT' : 'POST'; // Gunakan PUT jika id_presensi sudah ada, jika tidak gunakan POST
-
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to add/update presensi piket');
-            }
-
-            fetchPresensiPiket(); // Muat ulang data setelah berhasil menambah atau mengedit
-            document.getElementById('modalPresensi').classList.remove('open'); // Tutup modal setelah berhasil
-            e.target.reset(); // Reset form setelah berhasil
-        } catch (error) {
-            console.error('Error adding/updating presensi piket:', error);
-        }
-    });
-
-    // Muat data presensi piket saat halaman dimuat
-    fetchPresensiPiket();
-</script>
-
+<script src="/preline.js"></script>
 </body>
 </html>
 

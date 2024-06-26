@@ -1,4 +1,7 @@
-const { Model } = require('sequelize');
+'use strict';
+const {
+  Model
+} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class PresensiPiket extends Model {
@@ -13,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     no_anggota: DataTypes.STRING,
-    hari: DataTypes.DATE,
+    nama_anggota: DataTypes.STRING,
     tanggal: DataTypes.DATE,
     jam_masuk: DataTypes.TIME,
     jam_keluar: DataTypes.TIME,
-    status: DataTypes.ENUM('hadir', 'sakit', 'izin', 'tidak_hadir'),
+    status: DataTypes.ENUM('active', 'inactive'),
     keterangan: DataTypes.STRING
   }, {
     sequelize,

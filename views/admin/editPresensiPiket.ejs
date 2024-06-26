@@ -5,56 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/stylesheets/output.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Create Pertemuan</title>
+    <title>Edit Pertemuan</title>
 </head>
 
 <body class="bg-gray-100">
 
-  <%- include('sidebar') %>
 
- 
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
 
         <div class="bg-white p-6 rounded-lg shadow-lg" style="width: 70%; position: absolute; left: 20%; top: 15%;">
 
-            <form id="createPertemuanForm" class="mt-6 space-y-4" method="POST" action="/admin/pertemuan">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">PERTEMUAN BARU</h1>
+            <form id="editPertemuanForm" class="mt-6 space-y-4" method="POST" action="/admin/editPertemuan/<%= presensipiket.id %>">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">EDIT PERTEMUAN</h1>
+
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label for="pertemuanId"
-                        class="block mb-2 text-sm text-gray-700 font-medium">Pertemuan ID</label>
-                    <input type="text" name="pertemuanId" id="pertemuanId"
-                        class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
-                </div>  
 
                     <div>
-                        <label for="namaPertemuan" class="block mb-2 text-sm text-gray-700 font-medium">Nama Pertemuan</label>
-                        <input type="text" name="namaPertemuan" id="namaPertemuan"
+                        <label for="pertemuanId" class="block mb-2 text-sm text-gray-700 font-medium">Pertemuan ID</label>
+                        <input type="text" name="pertemuanId" id="pertemuanId" value="<%= presensipiket.id %>" readonly
                                class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
                     </div>
 
+                    <div>
+                        <label for="namaPertemuan" class="block mb-2 text-sm text-gray-700 font-medium">Nama Pertemuan</label>
+                        <input type="text" name="namaPertemuan" id="namaPertemuan" value="<%= presensipiket.namaPertemuan %>"
+                               class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
+                    </div>
 
                     <div>
                         <label for="jenisPertemuan" class="block mb-2 text-sm text-gray-700 font-medium">Jenis Pertemuan</label>
                         <select name="jenisPertemuan" id="jenisPertemuan"
                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
-                            <option value="" disabled selected hidden>Pilih Jenis Pertemuan</option>
-                            <option value="rapat">Rapat</option>
-                            <option value="upgrading">Upgrading</option>
-                            <option value="goro">Goro</option>
-                            <option value="lainnya">Lainnya</option>
+                            <option value="" disabled hidden>Pilih Jenis Pertemuan</option>
+                            <option value="rapat" <%= presensipiketjenisPertemuan === 'rapat' ? 'selected' : '' %>>Rapat</option>
+                            <option value="upgrading" <%= presensipiket.jenisPertemuan === 'upgrading' ? 'selected' : '' %>>Upgrading</option>
+                            <option value="goro" <%= presensipiket.jenisPertemuan === 'goro' ? 'selected' : '' %>>Goro</option>
+                            <option value="lainnya" <%= presensipiket.jenisPertemuan === 'lainnya' ? 'selected' : '' %>>Lainnya</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <label for="tanggal" class="block mb-2 text-sm text-gray-700 font-medium">Tanggal</label>
-                    <input type="date" name="tanggal" id="tanggal"
+                    <input type="date" name="tanggal" id="tanggal" value="<%= presensipiket.tanggal %>"
                            class="py-2 px-3 block w-full max-w-xs border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
                 </div>
-
 
                 <div class="mt-6">
                     <button type="submit"

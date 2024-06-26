@@ -13,8 +13,6 @@ var adminRouter = require('./routes/adminRoute');
 var authRouter = require('./routes/authRoute');
 var tamuRouter = require('./routes/tamuRoute');
 var feedbackRouter = require('./routes/feedbackRoute');
-const presensiPiketRoutes = require('./routes/presensiRoute');
-
 
 var app = express();
 
@@ -41,8 +39,7 @@ app.use('/aslab', aslabRouter);
 app.use('/admin', adminRouter); 
 app.use('/', authRouter);
 app.use('/tamu', tamuRouter);
-app.use('/feedback', feedbackRouter);
-app.use('/presensiPiket', presensiPiketRoutes);
+app.use('/feedback', feedbackRouter); 
 
 app.use(express.static(path.join(__dirname, "./node_modules/preline/dist")));app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')));
 app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets')));

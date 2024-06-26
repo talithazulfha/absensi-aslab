@@ -1,54 +1,102 @@
-const { PresensiPiket, User } = require('../models');
+const { PresensiPiket } = require('../models');
+const jwt = require("jsonwebtoken");
 
+const createPresensiPiket = async (req, res) => {
+  const { no_anggota, nama_anggota, tanggal, jam_masuk, jam_keluar, status, keterangan } = req.body;
 
-exports.createPresensiPiket = async (req, res) => {
-    try {
-      const { id_presensi, no_anggota, hari, tanggal, jam_masuk, jam_keluar, status, keterangan } = req.body;
-      console.log('Data yang diterima:', req.body); // Tambahkan ini untuk memeriksa data yang diterima
-      if (!id_presensi || !no_anggota || !hari || !tanggal || !jam_masuk || !jam_keluar || !status) {
-        return res.status(400).json({ error: 'Semua field harus diisi' });
+  try {
+      console.log('Request Body:', req.body);
+
+      const newPresensiPiket = await PresensiPiket.create({
+          no_anggota,
+          nama_anggota,
+          tanggal,
+          jam_masuk,
+          jam_keluar,
+          status,
+          keterangan
+      });
+
+      console.log("New Presensi Piket Created:", newPresensiPiket);
+
+      res.redirect('/admin/presensiPiketDetails');
+  } catch (error) {
+      console.error('Error creating presensi piket:', error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const listPresensiPiket = async (req, res) => {
+  try {
+      const listpiket = await PresensiPiket.findAll();
+      res.render('admin/presensiPiketDetails', {
+          title: 'Presensi Piket',
+          listpiket
+      });
+  } catch (error) {
+      console.error('Error fetching presensi piket:', error);
+      res.status(500).json({ message: 'Terjadi kesalahan internal server. Silakan coba lagi nanti.' });
+  }
+};
+
+const editPresensiPiket = async (req, res) => {
+  const { id } = req.params;
+  try {
+      const piket = await PresensiPiket.findByPk(id);
+      if (!piket) {
+        return res.status(404).json({ message: "presensi piket not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching presensi piket for edit:", error);
+    res.status(500).json({ message: "Internal server error" });
+}
+};
+
+const updatePresensiPiket = async (req, res) => {
+  const { id } = req.params;
+  const { tanggal, jam_masuk, jam_keluar, status, keterangan } = req.body;
+  
+  try {
+      const updatepresensi = await PresensiPiket.findByPk(id);
+      if (!updatepresensi) {
+          return res.status(404).json({ message: "Presensi piket not found" });
       }
-      const newPresensiPiket = await PresensiPiket.create({ id_presensi, no_anggota, hari, tanggal, jam_masuk, jam_keluar, status, keterangan });
-      res.status(201).json(newPresensiPiket);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
 
+      await updatepresensi.update({
+          tanggal,
+          jam_masuk,
+          jam_keluar,
+          status,
+          keterangan
+      });
 
-exports.updatePresensiPiket = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { no_anggota, hari, tanggal, jam_masuk, jam_keluar, status, keterangan } = req.body;
-    const presensiPiket = await PresensiPiket.findByPk(id);
-    if (!presensiPiket) {
-      return res.status(404).json({ message: 'Presensi Piket not found' });
-    }
-    presensiPiket.no_anggota = no_anggota;
-    presensiPiket.hari = hari;
-    presensiPiket.tanggal = tanggal;
-    presensiPiket.jam_masuk = jam_masuk;
-    presensiPiket.jam_keluar = jam_keluar;
-    presensiPiket.status = status;
-    presensiPiket.keterangan = keterangan;
-    await presensiPiket.save();
-    res.status(200).json(presensiPiket);
+      res.redirect('/admin/presensiPiketDetails');
   } catch (error) {
-    res.status(500).json({ error: error.message });
+      console.error("Error updating presensi piket:", error);
+      res.status(500).json({ message: "Internal server error" });
   }
 };
 
-
-exports.deletePresensiPiket = async (req, res) => {
+const deletePresensiPiket = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const presensiPiket = await PresensiPiket.findByPk(id);
-    if (!presensiPiket) {
-      return res.status(404).json({ message: 'Presensi Piket not found' });
-    }
-    await presensiPiket.destroy();
-    res.status(204).json({ message: 'Presensi Piket deleted successfully' });
+      const piket = await PresensiPiket.findByPk(id);
+      if (!piket) {
+          return res.status(404).json({ message: "Presensi piket not found" });
+      }
+
+      await piket.destroy();
+      res.redirect('/admin/presensiPiketDetails');
   } catch (error) {
-    res.status(500).json({ error: error.message });
+      console.error("Error deleting presensi piket:", error);
+      res.status(500).json({ message: "Internal server error" });
   }
 };
+
+module.exports = { 
+  createPresensiPiket,
+  listPresensiPiket,
+  editPresensiPiket,
+  updatePresensiPiket,
+  deletePresensiPiket };
+

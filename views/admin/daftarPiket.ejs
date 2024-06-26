@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/stylesheets/output.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Daftar Piket</title>
+</head>
+
+<body class="bg-gray-100">
+    <%- include('sidebar') %>
+
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg" style="width: 70%; position: absolute; left: 20%; top: 15%;">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Tambah Presensi Piket</h1>
+            <form id="addPresensiPiketForm" method="POST" action="/admin/daftarPiket" enctype="multipart/form-data" class="mt-6 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+            <label for="nama_anggota" class="block text-sm font-medium text-gray-700">Nama</label>
+            <select name="nama_anggota" id="nama_anggota" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
+              <option value="" disabled selected hidden>Pilih Anggota</option>
+              </script>
+            </select>
+          </div>
+          <div>
+            <label for="no_anggota" class="block text-sm font-medium text-gray-700">No Anggota</label>
+            <input type="text" name="no_anggota" id="no_anggota" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-100 disabled:pointer-events-none" readonly>
+        </div>
+        </div>
+        <div>
+          <label for="status" class="block mb-2 text-sm text-gray-700 font-medium">Status</label>
+          <select name="status" id="status"
+            class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required>
+            <option value="" disabled selected hidden>Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+                <div>
+                    <label for="tanggal" class="block mb-2 text-sm text-gray-700 font-medium">Tanggal Piket</label>
+                    <input type="date" name="tanggal" id="tanggal" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="jam_masuk" class="block mb-2 text-sm text-gray-700 font-medium">Jam Masuk</label>
+                    <input type="time" name="jam_masuk" id="jam_masuk" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="jam_keluar" class="block mb-2 text-sm text-gray-700 font-medium">Jam Keluar</label>
+                    <input type="time" name="jam_keluar" id="jam_keluar" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="keterangan" class="block mb-2 text-sm text-gray-700 font-medium">Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div class="mt-6">
+                    <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/preline.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          async function fetchUsers() {
+              const response = await fetch('/admin/daftarPiket/data'); // Make sure the endpoint is correct
+              const users = await response.json();
+              const namaAnggotaSelect = document.getElementById('nama_anggota');
+              const noAnggotaInput = document.getElementById('no_anggota');
+
+              const usersMap = new Map(); 
+
+              users.forEach(user => {
+                  const option = document.createElement('option');
+                  option.value = user.id;
+                  option.text = user.namaAnggota;
+                  namaAnggotaSelect.appendChild(option);
+
+                  // Assuming `user.id` is the 'No Anggota'
+                  usersMap.set(user.id, user.id);
+              });
+
+              namaAnggotaSelect.addEventListener('change', function() {
+                  const selectedId = namaAnggotaSelect.value;
+                  noAnggotaInput.value = usersMap.get(selectedId) || ''; 
+              });
+          }
+          fetchUsers(); 
+      });
+  </script>
+</body>
+
+</html>
