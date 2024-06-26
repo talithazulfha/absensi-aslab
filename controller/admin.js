@@ -17,6 +17,17 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getIddanAnggota = async (req, res) => {
+  try {
+    const users = await User.findAll({ attributes: ['id', 'namaAnggota'] });
+    console.log(users) 
+    res.json(users);  
+  } catch (error) {
+    console.error("Error fetching users: ", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const getData = async (req, res) => {
   try {
     const user = await User.findByPk(req.userId); 
@@ -91,5 +102,6 @@ module.exports = {
   getUsers,
   getDashboardData,
   changePassword,
-  getData
+  getData,
+  getIddanAnggota
 };
